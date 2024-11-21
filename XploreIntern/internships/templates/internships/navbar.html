@@ -1,0 +1,100 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="static css/styles.css">
+    </head>
+    <body>
+        
+<nav>
+    <div class="navbar">
+        <div class="logo">Internship Portal</div>
+        <div class="nav-links" style="text-shadow: 2px 2px 0 rgba(69, 111, 234, 0.5),
+        4px 4px 0 rgba(108, 141, 225, 0.3),
+        6px 6px 0 rgba(17, 237, 233, 0.2); ">
+            
+            {% if request.user.is_authenticated %}
+                {% if user.student %}
+                    <a href="{% url 'internships_list' %}">Internships</a>
+                    <a href="{% url 'student_dashboard' %}">Dashboard</a>
+                {% elif user.employer %}
+                    <a href="{% url 'employer_dashboard' %}">Dashboard</a>
+                    <a href="{% url 'internships_list' %}">Internships List</a>
+                {% endif %}
+                
+            {% else %}
+            
+                <a href="#" id="login-btn">Login</a>
+                {% if request.resolver_match.url_name != 'register' %}
+                <a href="{% url 'register' %}">Register</a>
+                {% endif %}
+                <a href="{% url 'internships_list' %}">Internships List</a>
+            {% endif %}
+            {% if request.resolver_match.url_name != 'home' %}
+                <a href="{% url 'home' %}">Home</a>
+                {% endif %}
+            <a href="{% url 'about' %}">About</a>
+        </div>
+
+        {% if request.user.is_authenticated %}
+            <div class="navbar-profile">
+                <div class="profile-container">
+                    {% if user.employer %}
+                        {% if user.employer.logo %}
+                            <img src="{{ user.employer.logo.url }}?{{ user.employer.updated_at.timestamp }}" alt="Profile Image" class="profile-img" id="profileDropdownToggle">
+                        {% else %}
+                            <img src="{% static 'images/default_profile.jpg' %}" alt="Profile Image" class="profile-img" id="profileDropdownToggle">
+                        {% endif %}
+                        <div class="profile-dropdown" id="profileDropdown">
+                            <a href="{% url 'update_employ' %}">Update Profile</a>
+                            <a href="{% url 'logout' %}">Logout</a>
+                        </div>
+                    {% elif user.student %}
+                        {% if user.student.logo %}
+                            <img src="{{ user.student.logo.url }}?{{ user.student.updated_at.timestamp }}" alt="Profile Image" class="profile-img" id="profileDropdownToggle">
+                        {% else %}
+                            <img src="{% static 'images/default_profile.jpg' %}" alt="Profile Image" class="profile-img" id="profileDropdownToggle">
+                        {% endif %}
+                        <div class="profile-dropdown" id="profileDropdown">
+                            <a href="{% url 'update_profile' %}">Update Profile</a>
+                            <a href="{% url 'logout' %}">Logout</a>
+                        </div>
+                    {% else %}
+                        <img src="{% static 'images/default_profile.jpg' %}" alt="Profile Image" class="profile-img" id="profileDropdownToggle">
+                    {% endif %}
+                    
+                </div>
+            </div>
+        {% endif %}
+
+
+    </div>
+</nav>
+
+
+<!-- Login Modal -->
+<div id="login-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Login</h2>
+        <form id="login-form" action="{% url 'login' %}" method="POST">
+            {% csrf_token %}
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+            <button type="submit" class="login-btn">Login</button>
+        </form>
+    </div>
+</div>
+
+
+    <script src="{% static 'js/home.js' %}"></script>
+
+
+
+
+    </body>
+</html>

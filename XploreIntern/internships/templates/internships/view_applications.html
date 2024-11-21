@@ -1,0 +1,60 @@
+{% load static %}
+{% include 'internships/popup_messages.html' %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Applications
+        </title>
+        <link rel="stylesheet" href="{% static 'css/view_applications.css' %}">
+    </head>
+    <body>
+        <div class="page-container">
+            {% include 'internships/base.html' %}
+            <div class="content-wrap">
+        <h2 style="text-align: center; color: white">Applications for {{ job.internship_title }}</h2>
+        
+        {% if applications %}
+        <ul type="none">
+            {% for application in applications %}
+            <li>
+                
+                <p><strong>Name:</strong> {{ application.student.full_name }}</p>
+                <p><strong>Email:</strong> {{ application.student.user.email }}</p>
+                <p><strong>University:</strong> {{ application.student.university }}</p>
+                <p><strong>Field of Study:</strong> {{ application.student.field_of_study }}</p>
+                <p><strong>Resume:</strong> <a href="{{ application.resume.url }}" target="_blank">Download</a></p>
+                <a href="{% url 'full_profile' application.id %}">View Profile</a><br>
+                <div> 
+                    {% if application.status == 'applied' %}
+                        <span style="display: flex;">
+                            <form method="post" action="{% url 'accept_application' application.id %}">
+                                {% csrf_token %}
+                                <button class="accept" type="submit">Accept</button>
+                            </form>
+                            <form method="post" action="{% url 'reject_application' application.id %}">
+                                {% csrf_token %}
+                                <button class="reject" type="submit">Reject</button>
+                            </form>
+                        </span>
+                    {% elif application.status == 'accepted' %}
+                        <button class="accepted" disabled>Accepted</button>
+                    {% elif application.status == 'rejected' %}
+                        <button class="rejected" disabled>Rejected</button>
+                    {% endif %}
+                </div>
+                
+            {% endfor %}
+            </li>
+
+        </ul>
+        {% else %}
+        <p>No applications for this job yet.</p>
+        {% endif %}
+        </ul>
+    </div>
+    {% include 'internships/footer.html' %}
+</div>
+    </body>
+</html>

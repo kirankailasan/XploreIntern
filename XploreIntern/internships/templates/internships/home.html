@@ -1,0 +1,186 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XploreINtern - Home</title>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+    <style>
+        body{
+            background-image: url("{%static 'images/home.jpg'%}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            
+        }
+    </style>
+</head>
+<body>
+
+    {% include 'internships/base.html' %}
+
+    <!-- Home Header Section -->
+    <div class="home-header" style="background-image: url('{% static 'images/photo-1522071820081-009f0129c71c.jpg' %}');" loading="lazy">
+        <h1>Start Your Dream Career </h1>
+        <p>Explore opportunities, gain experience, and build your career with our extensive internship listings.</p>
+    </div>
+
+    <!-- Categories Section -->
+    <div class="categories">
+        <div class="category-card" style="background-image: url('{% static 'images/IMG-20241116-WA0336.jpg' %}');" loading="lazy">
+            Technology
+        </div>
+        <div class="category-card" style="background-image: url('{% static 'images/photo-1542744173-8e7e53415bb0.jpg' %}');" loading="lazy">
+            Business
+        </div>
+        <div class="category-card" style="background-image: url('{% static 'images/photo-1498050108023-c5249f4df085.jpg' %}');" loading="lazy">
+            Design
+        </div>
+        <div class="category-card" style="background-image: url('{% static 'images/IMG-20241116-WA0338.jpg' %}');" loading="lazy">
+            Healthcare
+        </div>
+        <div class="category-card" style="background-image: url('{% static 'images/photo-1521791136064-7986c2920216.jpg' %}');" loading="lazy">
+            Marketing
+        </div>
+    </div>
+
+    <!-- Featured Internships Section -->
+    <div class="featured-section">
+        <h2 style="color: white">Featured Internships</h2>
+        <div class="featured-list">
+            {% for job in featured_jobs %}
+                <div class="featured-card">
+                    {% if job.company_logo_url %}
+                    <img src="{{ job.company_logo_url }}" alt="{{ job.company_name }} Logo">
+                    {% else %}
+                    <img src="{% static 'images/photo-1562564055-71e051d33c19.jpg' %}" alt="Default logo">
+                    {% endif %}
+                    <h3>{{ job.job_title }}</h3>
+                    <p><strong>Company:</strong> {{ job.company_name }}</p>
+                    <p><strong>Location:</strong> {{ job.location }}</p>
+                    <p><strong>Type:</strong> {{ job.internship_type }}</p>
+                    {% if request.user.is_authenticated %}
+                    {% if user.student %}
+                    {% if job.id in applied_job_ids %}
+                        <button class="apply-button">Applied</button>
+                    {% else %}
+                    <a href="{% url 'apply_for_job' job.id %}">
+                        <button class="apply-button">Apply</button>
+                    </a>
+                    {% endif %}
+                    {% endif %}
+                    {% if user.employer %}
+                    <a href="{% url 'post_job' %}">
+                        <button class="apply-button">Post Your Job</button>
+                    </a>
+                    {% endif %}
+                    {% else %}
+                    <button class="apply-button" id="login-btn" onclick="showLoginModal()">Login to Apply/Post</button>
+                    {% endif %}
+                </div>
+            {% empty %}
+                <p>No featured internships available at the moment.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Login</h2>
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <p class="message">{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <form id="login-form" action="{% url 'login' %}" method="POST">
+                {% csrf_token %}
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+                <button type="submit" class="login-btn">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="{% static 'js/home.js' %}"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // If the context variable 'show_login_modal' is true, open the modal
+            {% if show_login_modal %}
+                showLoginModal();
+            {% endif %}
+
+            // Get the modal
+            var modal = document.getElementById("login-modal");
+
+            {%if messages %}
+            modal.style.display = "block";
+            {% endif %}
+
+            // Get the button that opens the modal
+            var loginBtns = document.querySelectorAll("#login-btn");
+
+            loginBtns.forEach(btn => {
+                btn.onclick = function() {
+                    console.log("Login button clicked");
+                    modal.style.display = "block";
+                }
+            });
+
+            // Get the <span> element that closes the modal
+            var closeBtn = document.querySelector(".close");
+
+            closeBtn.onclick = function() {
+                modal.style.display = "none";
+            }
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+                if (event.target === modal) {
+                    modal.style.display = "none";
+                }
+            }
+
+            const profileDropdownToggle = document.getElementById('profileDropdownToggle');
+            const profileDropdown = document.getElementById('profileDropdown');
+
+            profileDropdownToggle.addEventListener('mouseover', function () {
+                profileDropdown.style.display = profileDropdown.style.display === 'block' ? 'none' : 'block';
+            });
+            
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function (e) {
+                if (!profileDropdownToggle.contains(e.target) && !profileDropdown.contains(e.target)) {
+                    profileDropdown.style.display = 'none';
+            
+                }
+            });
+        });
+
+        function showLoginModal() {
+            var modal = document.getElementById("login-modal");
+            modal.style.display = "block";
+        }
+
+        function toggleNav() {
+            var navLinks = document.getElementById("navLinks");
+            navLinks.classList.toggle("active");
+        }
+    </script>
+
+</body>
+</html>
+
+{% include 'internships/footer.html' %}

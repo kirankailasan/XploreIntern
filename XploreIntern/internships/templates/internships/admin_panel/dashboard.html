@@ -1,0 +1,44 @@
+<!-- templates/admin_panel/dashboard.html -->
+ {%load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/admin_panel/admin_dashboard.css' %}">
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <h1>Admin Dashboard</h1>
+            <a href="{% url 'admin_logout' %}" class="logout-btn">Logout</a>
+        </header>
+        
+        <div class="stats">
+            <div class="stat-item">
+                <p class="stat-number">{{ total_employers }}</p>
+                <p class="stat-label">Total Employers</p>
+            </div>
+            <div class="stat-item">
+                <p class="stat-number">{{ total_students }}</p>
+                <p class="stat-label">Total Students</p>
+            </div>
+            <div class="stat-item">
+                <p class="stat-number">{{ total_internships }}</p>
+                <p class="stat-label">Total Internships</p>
+            </div>
+            <div class="stat-item">
+                <p class="stat-number">{{ total_applications }}</p>
+                <p class="stat-label">Total Applications</p>
+            </div>
+        </div>
+
+        <div class="links">
+            <a href="{% url 'employer_list' %}" class="link-btn">View Employers</a>
+            <a href="{% url 'internship_list' %}" class="link-btn">View Internships</a>
+            <!-- Add more links as needed -->
+        </div>
+    </div>
+</body>
+</html>

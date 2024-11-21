@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+        
+    </head>
+    <body>
+        
+        <footer id="footer" style="bottom:0">
+            <div id="footer-content" style="font-style: arial; " >
+                <div id="footer-about">
+                    <h3>XploreIntern</h3>
+                    <p style="color: white">Providing a bridge between students and employers to make internship opportunities more accessible.</p>
+                </div>
+                <div >
+                    <h3>Quick Links</h3>
+                    <div id="footer-links" >
+                        
+                        <div >
+                            <a href="{% url 'home' %}">Home</a><br>
+                            {% if not user.employer%}
+                            <a href="{% url 'internships_list' %}">Internships List</a><br>
+                            {% endif %}
+                            <a href="{% url 'about' %}">About Us</a><br>
+                            {% if request.user.is_authenticated %}
+                            {% if user.student %}
+                                <a href="{% url 'student_dashboard' %}">Dashboard</a><br>
+                            {% elif user.employer %}
+                                <a href="{% url 'employer_dashboard' %}">Dashboard</a><br>
+                            {% endif %}
+                            
+                        {% else %}
+                        
+                            <a href="#" id="login-btn">Login</a><br>
+                            {% if request.resolver_match.url_name != 'register' %}
+                            <a href="{% url 'register' %}">Register</a><br>
+                            {% endif %}
+                        {% endif %}
+                        </div>
+                        
+                    </div>
+                </div>
+                <div id="footer-contact" >
+                    <h3>Contact Us</h3>
+                    <p style="color: white" >Email: <a href="mailto:xploreintern@gmail.com">xploreintern@gmail.com</a></p>
+                    <p style="color: white" >Phone: <a href="tel:+918590730441">+91 85907 30441</a></p>
+                </div>
+            </div>
+            <div id="footer-bottom">
+                &copy; 2024 XploreIntern | Designed for career growth
+            </div>
+        </footer>
+    </body>
+</html>

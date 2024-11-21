@@ -1,0 +1,43 @@
+<!-- internships/templates/internships/employer_dashboard.html -->
+{% load static %}
+{% include 'internships/popup_messages.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employer Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/employer_dashboard.css' %}">
+</head>
+<body>
+
+    <div class="page-container">
+        {% include 'internships/base.html' %}
+        <div class="content-wrap">
+        <h1 style="text-align: center;">Welcome {{ user.username }}</h1>  
+        <div style="text-align: center;"><a href="{% url 'post_job' %}">Post a New Internship</a></div>
+        <h2 style="text-align: center; color: white">Your Posted Internships</h2>
+        <hr style="border-top: 1px solid black; margin: 20px 0;">
+
+        <ul>
+            {% for job in jobs %}
+                <li>Position: <strong>{{ job.internship_title }}</strong><br>
+                    <a href="{% url 'job_preview' job.id %}">View</a> | 
+                    <a href="{% url 'edit_job' job.id %}">Edit</a> <br>
+                    <a class="applicants" href="{% url 'view_applications' job.id %}">View Applicants</a><br>
+                    {% if job.is_active %}
+                        <a href="{% url 'withdraw_job' job.id %}" class="btn btn-danger" onclick="return confirm('Are you sure you want to withdraw this job?');">Withdraw</a>
+                    {% else %}
+                        <span class="badge bg-secondary">Withdrawn</span>
+                    {% endif %}
+                </li>
+            {% empty %}
+                <li>No jobs posted yet.</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% include 'internships/footer.html' %}
+</div>
+
+</body>
+</html>
+
+

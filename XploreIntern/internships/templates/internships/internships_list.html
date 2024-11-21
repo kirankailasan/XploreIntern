@@ -1,0 +1,245 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang= "en" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <title>Internship Listings</title>
+    <style>
+        /* Search Bar Styling */
+
+        body{
+            background-image: url('/static/images/internship_list.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        .search-bar {
+            display: flex;
+            gap: 10px;
+            padding: 10px;
+            margin: 20px 0;
+        }
+        .search-bar input,
+        .search-bar select {
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            width: 100%;
+        }
+        .search-bar button {
+            padding: 10px 20px;
+            background-color: #2980b9;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Internship Card Styling */
+        .internship-list { 
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 20px; 
+            justify-content: center;
+            margin: 8%;
+         }
+
+
+        .internship-card {
+            width: 300px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: rgb(255, 255, 255, 0.2);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .internship-card:hover{
+            background-color:  rgb(255, 255, 255, 0.5);
+            transform: scale(1.05);
+            
+        }
+        .internship-card h3 { margin: 10px 0; }
+        .internship-card p { margin: 5px 0; color: #faf4f4; }
+        .apply-button {
+            padding: 10px;
+            background-color: #2980b9;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        /* Pagination Controls */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .pagination a, .pagination span {
+            padding: 8px 12px;
+            margin: 0 5px;
+            border-radius: 5px;
+            background-color: #f4f4f4;
+            color: #2980b9;
+            text-decoration: none;
+        }
+        .pagination .current-page {
+            background-color: #2980b9;
+            color: white;
+        }
+        h1 { 
+            text-align: center;
+            padding: 20px;
+        }
+       
+        
+    </style>
+</head>
+<body>
+
+    {% include 'internships/base.html' %}
+
+    <div class="container">
+        <h1 style="color: white">Internship Listings</h1>
+
+        <!-- Search Bar -->
+        <form method="GET" class="search-bar">
+            <input type="text" name="query" placeholder="Internship Title" value="{{ query }}">
+            <input type="text" name="location" placeholder="Location" value="{{ location }}">
+            <input type="text" name="company" placeholder="Company" value="{{ company }}">
+            <button type="submit">Search</button>
+        </form>
+
+        <!-- Internship Cards -->
+        <div class="internship-list">
+            {% for job in page_obj %}
+                <div class="internship-card">
+                    {% if job.company_logo_url %}
+                    <img src="{{ job.company_logo_url }}" alt="{{ job.company_name }} Logo" style="width: 50px; height: 50px; border-radius: 5px; margin-bottom: 10px;">
+                    {% else %}
+                    <img src="{% static 'images/default_profile.jpg' %}" alt="Default logo" style="max-width: 100px; max-height: 100px; border-radius:50%">
+                {% endif %}
+                    <h3>{{ job.internship_title }}</h3>
+                    <p><strong>Company:</strong> {{ job.company_name }}</p>
+                    <p><strong>Location:</strong> {{ job.location }}</p>
+                    <p><strong>Type:</strong> {{ job.job_type }}</p>
+                    <p>{{ job.summary|truncatewords:20 }}</p>
+                    {% if request.user.is_authenticated %}
+                    {% if user.student %}
+                    {% if job.id in applied_job_ids %}
+                        <button class="apply-button">Applied</button>
+                    {% else %}
+                <a href="{% url 'apply_for_job' job.id %}">
+                    <button class="apply-button">Apply</button>
+                </a>
+                    {%endif%}
+                    {%endif%}
+                    {% if user.employer %}
+                    <a href="{% url 'post_job' %}">
+                        <button class="apply-button">Post Your Job</button>
+                    </a>
+                    {%endif%}
+            {% else %}
+                <button class="apply-button" id="login-btn" onclick="showLoginModal()">Login to Apply/Post</button>
+            {% endif %}
+                </div>
+            {% empty %}
+                <p style="color: white">No internships available.</p>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination Controls -->
+        <div class="pagination">
+            {% if page_obj.has_previous %}
+                <a href="?page=1&query={{ query }}&location={{ location }}&company={{ company }}">First</a>
+                <a href="?page={{ page_obj.previous_page_number }}&query={{ query }}&location={{ location }}&company={{ company }}">Previous</a>
+            {% endif %}
+
+            <span class="current-page">{{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}&query={{ query }}&location={{ location }}&company={{ company }}">Next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}&query={{ query }}&location={{ location }}&company={{ company }}">Last</a>
+            {% endif %}
+        </div>
+    </div>
+
+        <!-- Login Modal -->
+<div id="login-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Login</h2>
+        <form id="login-form" action="{% url 'login' %}" method="POST">
+            {% csrf_token %}
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+            <button type="submit" class="login-btn">Login</button>
+        </form>
+    </div>
+</div>
+
+    <!-- FontAwesome Icons -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() { 
+            
+            // Get the modal
+            var modal = document.getElementById("login-modal");
+        
+            // Get the button that opens the modal
+            var loginBtns = document.querySelectorAll("#login-btn");
+        
+            loginBtns.forEach(btn => {
+                btn.onclick = function() {
+                    console.log("Login button clicked"); 
+                    modal.style.display = "block";
+                }
+            });
+        
+            // Get the <span> element that closes the modal
+            var closeBtn = document.querySelector(".close");
+        
+            closeBtn.onclick = function() {
+                modal.style.display = "none";
+            }
+        
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+                if (event.target === modal) {
+                    modal.style.display = "none";
+                }
+            }
+
+            const profileDropdownToggle = document.getElementById('profileDropdownToggle');
+            const profileDropdown = document.getElementById('profileDropdown');
+
+            profileDropdownToggle.addEventListener('mouseover', function () {
+                profileDropdown.style.display = profileDropdown.style.display === 'block' ? 'none' : 'block';
+            });
+            
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function (e) {
+                if (!profileDropdownToggle.contains(e.target) && !profileDropdown.contains(e.target)) {
+                    profileDropdown.style.display = 'none';
+            
+                }
+            });
+        });
+        function toggleNav() {
+            var navLinks = document.getElementById("navLinks");
+            navLinks.classList.toggle("active");
+        }
+    </script>
+
+        <script src="{% static 'js/home.js' %}"></script>
+
+        {% include 'internships/footer.html' %}
+</body>
+</html>

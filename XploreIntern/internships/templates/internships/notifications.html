@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .notification {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        .accepted {
+            color: green;
+        }
+        .rejected {
+            color: red;
+        }
+        .timestamp {
+            font-size: 12px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <h1>Your Notifications</h1>
+    {% if notifications %}
+        {% for notification in notifications %}
+            <div class="notification">
+                {% if notification.status == 'accepted' %}
+                    <p class="accepted">🎉 Congratulations! Your application for <strong>{{ notification.job.internship_title }}</strong> at <strong>{{ notification.job.company_name }}</strong> has been accepted.</p>
+                {% elif notification.status == 'rejected' %}
+                    <p class="rejected">😞 Sorry! Your application for <strong>{{ notification.job.internship_title }}</strong> at <strong>{{ notification.job.company_name }}</strong> has been rejected.</p>
+                {% endif %}
+                <p class="timestamp">Last updated: {{ notification.updated_at|date:"F j, Y, g:i a" }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No notifications yet.</p>
+    {% endif %}
+
+    <a href="{% url 'student_dashboard'%}">Exit to dashboard </a>
+
+    <script>
+        // Ensure the page reloads when navigating via back/forward buttons
+        window.addEventListener('pageshow', function (event) {
+            if (event.persisted) {
+                // Reload the page if it was restored from the cache
+                window.location.reload();
+            }
+        });
+    </script>
+</body>
+</html>

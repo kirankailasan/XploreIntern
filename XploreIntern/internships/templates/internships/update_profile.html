@@ -1,0 +1,94 @@
+{% load static %}
+{% include 'internships/popup_messages.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+    {% include 'internships/base.html' %}
+    <title>Update Profile</title>
+    <link rel="stylesheet" href="{% static 'css/update_profile.css' %}">
+    
+</head>
+<body>
+    <h2 style="text-align:center; color:white;">Update Profile</h2>
+    <div class="profile-image-container" id="profileImageContainer">
+        {% if user.student.logo %}
+            <img src="{{ user.student.logo.url }}?{{ user.student.updated_at.timestamp }}" class="profile-image">
+        {% else %}
+            <img src="{% static 'images/default_profile.jpg' %}" class="profile-image" style="max-width: 200px; max-height: 200px;">
+        {% endif %}
+        <div class="edit-overlay" id="editOverlay">Edit
+        </div>
+    </div>
+    
+    <div id="popupOverlay" class="popup-overlay">
+        <div class="popup-image-container">
+            <span class="close-profile" onclick="closePopup()">&#10005;</span>
+            {% if user.student.logo %}
+                <img src="{{ user.student.logo.url }}?{{ user.student.updated_at.timestamp }}">
+            {% else %}
+                <img src="{% static 'images/default_profile.jpg' %}">
+            {% endif %}
+            <div>
+                <button onclick="updateImage()">Update</button>
+                {% if user.student.logo %}
+                    <button type="button" onclick="removeImage()">Remove</button>
+                {% endif %}
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="circular-progress" 
+            data-inner-circle-color="lightgrey" 
+            data-percentage="{{ profile_completion }}" 
+            data-progress-color="crimson" 
+            data-bg-color="lightgrey">
+            <div class="inner-circle"></div>
+            <p class="percentage">0%</p>
+    </div>
+
+    <form style="margin-top: 23px; margin-left: 8%; margin-right: 8%;"method="post" enctype="multipart/form-data" id="updateForm">
+        
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="file" name="logo" id="logoInput" style="display: none;" onchange="document.forms[0].submit();">
+        <div class="btn-con">
+            <button type="submit" class="sub-btn">Update Profile</button>
+            <a href="{% url 'student_dashboard' %}" class="back-btn">Back to Dashboard</a>
+            </div>
+    </form>
+
+
+    <a style="color: lightblue" href="{% url 'student_dashboard' %}">Back to Dashboard</a>
+    <script src="{% static 'js/completion.js' %}"></script>
+    <script>
+        // JavaScript to show popup on image click
+        document.getElementById('profileImageContainer').addEventListener('click', function() {
+            document.getElementById('popupOverlay').style.display = 'flex';
+        });
+
+        function closePopup() {
+            document.getElementById('popupOverlay').style.display = 'none';
+        }
+
+        // Trigger file input when Update button is clicked
+        function updateImage() {
+            document.getElementById('logoInput').click();
+        }
+
+        function removeImage() {
+            const form = document.querySelector("form");
+            const input = document.createElement("input");
+            input.type = "hidden";
+            input.name = "remove_logo";
+            input.value = "1";
+            form.appendChild(input);
+            form.submit();
+        }
+        
+    </script>
+    
+
+
+</body>
+</html>

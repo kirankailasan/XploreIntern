@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employer Details</title>
+    <link rel="stylesheet" href="{% static 'css/admin_panel/details.css' %}">
+</head>
+<body>
+    <div class="details-container">
+        <header>
+            <h1>{{ employer.company_name }}</h1>
+        </header>
+        <p><strong>Email:</strong> {{ email }}</p>
+        <p><strong>Location:</strong> {{ employer.location }}</p>
+        <p><strong>Approval Status:</strong> {{ employer.approved|yesno:"Approved,Not Approved" }}</p>
+        <p><strong>Updated At:</strong> {{ employer.updated_at }}</p>
+        {% if employer.logo %}
+            <img src="{{ employer.logo.url }}" alt="Company Logo" width="100px">
+        {% else %}
+            <img src="{% static 'images/default_profile.jpg' %}" alt="Company Logo" width="100px">
+        {% endif %}
+    </div>
+</body>
+</html>

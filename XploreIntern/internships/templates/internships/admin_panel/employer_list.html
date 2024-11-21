@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employer List</title>
+    <link rel="stylesheet" href="{% static 'css/admin_panel/employer_list.css' %}">
+    <link rel="stylesheet" href="{% static 'css/admin_panel/modal.css' %}">
+</head>
+<body>
+    <div class="employer-list-container">
+        <header class="page-header">
+            <h1>Employer List</h1>
+            <a href="{% url 'admin_dashboard' %}" class="back-btn">Back to Dashboard</a>
+        </header>
+
+        <table class="employer-table">
+            <thead>
+                <tr>
+                    <th>Company Name</th>
+                    <th>Location</th>
+                    <th>Approval Status</th>
+                    <th>Actions</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for employer in employers %}
+                <tr>
+                    <td>{{ employer.company_name }}</td>
+                    <td>{{ employer.location }}</td>
+                    <td>{{ employer.approved|yesno:"Approved,Not Approved" }}</td>
+                    <td>
+                        {% if employer.approved %}
+                            <a href="{% url 'disapprove_employer' employer.id %}" class="disapprove-btn">Disapprove</a>
+                        {% else %}
+                            <a href="{% url 'approve_employer' employer.id %}" class="approve-btn">Approve</a>
+                        {% endif %}
+                    </td>
+                    <td><button class="view-details-btn" onclick="openModal({{ employer.id }})">View Details</button></td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4">No employers found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal -->
+    <div id="detailsModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(employerId) {
+            fetch(`/admin/employer/${employerId}/`)
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById("modal-body").innerHTML = html;
+                    document.getElementById("detailsModal").style.display = "block";
+                });
+        }
+
+        function closeModal() {
+            document.getElementById("detailsModal").style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == document.getElementById("detailsModal")) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>

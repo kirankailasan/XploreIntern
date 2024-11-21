@@ -1,0 +1,90 @@
+{% load static %}
+
+{% include 'internships/popup_messages.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Dashboard</title>
+    
+    <link rel="stylesheet" href="{% static 'css/student_dashboard.css' %}">
+</head>
+<body>
+
+    <div class="page-container">
+        {% include 'internships/base.html' %}
+        <div class="content-wrap">
+    
+    <h2 style="text-align: center; color: white">Welcome, {{ user.username }}
+        <div class="notifications-icon">
+            <a href="{% url 'notifications' %}">
+                <span class="icon-bell">&#128276;</span>
+                {% if unread_notifications %}
+                <span class="badge" style="color:red;"><b>•</b></span>
+                
+                {% endif %}
+            </a>
+        </div>
+    </h2>
+    
+    
+        
+    <div title="Update your profile to get a better chance for finding Internships.">
+        {% if profile_completion < 100 %}
+        <div class="circular-progress" 
+            data-inner-circle-color="lightgrey" 
+            data-percentage="{{ profile_completion }}" 
+            data-progress-color="crimson" 
+            data-bg-color="lightgrey" >
+
+            
+
+            <div class="inner-circle"></div>
+            <p class="percentage">0%</p>
+        </div>
+        <div  style="text-align: center">
+            <a href="{% url 'update_profile' %}">
+                <button  id="update_profile" type="button">Update profile</button>
+            </a>
+        </div>
+        {% endif %}
+    </div>
+
+    
+        
+        <br>
+    
+    <div style="text-align: center;"><a  class="apply" href="{% url 'apply_job' %}"> Apply For Internships</a></div>
+
+    <h2 style="text-align: center; color: white">Your Applications</h2>
+    <hr style="border-top: 1px solid black; margin: 20px 0;">
+    {% if applications %}
+        <ul>
+        {% for application in applications %}
+            <li>
+                <strong>Internship Title: </strong><b style="color: rgb(179, 226, 230);">{{ application.job.internship_title }}</b><br>
+                <strong>Company: </strong><b style="color: rgb(153, 228, 234);">{{application.job.company_name}}</b><br>
+                <strong> Status: </strong> <b style="color: rgb(123, 219, 203);">{{ application.get_status_display }}</b><br>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p style="color: white;">You haven't applied to any internships yet.</p>
+    {% endif %}
+</div>
+{% include 'internships/footer.html' %}
+</div>
+    
+
+<script>
+    // Ensure the page reloads when navigating via back/forward buttons
+    window.addEventListener('pageshow', function (event) {
+        if (event.persisted) {
+            // Reload the page if it was restored from the cache
+            window.location.reload();
+        }
+    });
+</script>
+    <script src="{% static 'js/completion.js' %}"></script>
+
+</body>
+</html>

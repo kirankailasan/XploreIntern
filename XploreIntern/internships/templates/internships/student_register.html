@@ -1,0 +1,18 @@
+{% load static %}
+{% include 'internships/base.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <title>Student Registration</title>
+    <link rel="stylesheet" href="{% static 'css/form.css' %}">
+</head>
+<body>
+    <h2 style="text-align: center; color: white">Register as a Student</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Register</button>
+    </form>
+</body>
+</html>

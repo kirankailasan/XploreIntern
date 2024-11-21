@@ -1,0 +1,108 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>XploreIntern</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <nav>
+        <div id="navbar">
+            
+            <a id="icon" href="{% url 'home' %}" style="text-shadow: 2px 2px 0 rgba(69, 111, 234, 0.5),
+            4px 4px 0 rgba(108, 141, 225, 0.3),
+            6px 6px 0 rgba(17, 237, 233, 0.2); color: white"><img src="/static/images/favicon.png" alt="Icon" width="20" height="20"><span>XploreIntern</span></a>
+            
+            <div class="nav-links" style="text-shadow: 2px 2px 0 rgba(69, 111, 234, 0.5),
+            4px 4px 0 rgba(108, 141, 225, 0.3),
+            6px 6px 0 rgba(17, 237, 233, 0.2); ">
+                
+            {% if request.user.is_authenticated %}
+            {% if user.student %}
+                <a href="{% url 'internships_list' %}">Internships</a>
+                <a href="{% url 'student_dashboard' %}">Dashboard</a>
+            {% elif user.employer %}
+                <a href="{% url 'employer_dashboard' %}">Dashboard</a>
+                
+            {% endif %}
+           
+            
+        {% else %}
+        {% if not user.employer%}
+        <a href="{% url 'internships_list' %}">Internships</a>
+        {% endif %}
+        
+            <a href="#" id="login-btn">Login</a>
+            {% if request.resolver_match.url_name != 'register' %}
+            <a href="{% url 'register' %}">Register</a>
+            {% endif %}
+            
+        {% endif %}
+        {% if request.resolver_match.url_name != 'home' %}
+            <a href="{% url 'home' %}">Home</a>
+            {% endif %}
+        <a href="{% url 'about' %}">About</a>
+    </div>
+
+    {% if request.user.is_authenticated %}
+        <div class="navbar-profile">
+            <div class="profile-container">
+                {% if user.employer %}
+                    {% if user.employer.logo %}
+                        <img src="{{ user.employer.logo.url }}?{{ user.employer.updated_at.timestamp }}" alt="Profile Image" class="profile-img" id="profileDropdownToggle">
+                    {% else %}
+                        <img src="{% static 'images/default_profile.jpg' %}" alt="Profile Image" class="profile-img" id="profileDropdownToggle">
+                    {% endif %}
+                    <div class="profile-dropdown" id="profileDropdown">
+                        <a href="{% url 'update_employ' %}">Update Profile</a>
+                        <a href="{% url 'logout' %}">Logout</a>
+                    </div>
+                {% elif user.student %}
+                    {% if user.student.logo %}
+                        <img src="{{ user.student.logo.url }}?{{ user.student.updated_at.timestamp }}" alt="Profile Image" class="profile-img" id="profileDropdownToggle">
+                    {% else %}
+                        <img src="{% static 'images/default_profile.jpg' %}" alt="Profile Image" class="profile-img" id="profileDropdownToggle">
+                    {% endif %}
+                    <div class="profile-dropdown" id="profileDropdown">
+                        <a href="{% url 'update_profile' %}">Update Profile</a>
+                        <a href="{% url 'logout' %}">Logout</a>
+                    </div>
+                {% else %}
+                    <img src="{% static 'images/default_profile.jpg' %}" alt="Profile Image" class="profile-img" id="profileDropdownToggle">
+                {% endif %}
+                
+            </div>
+        </div>
+    {% endif %}
+
+
+        </div>
+    </nav>
+    
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const profileDropdownToggle = document.getElementById('profileDropdownToggle');
+            const profileDropdown = document.getElementById('profileDropdown');
+
+            profileDropdownToggle.addEventListener('mouseover', function () {
+                profileDropdown.style.display = profileDropdown.style.display === 'block' ? 'none' : 'block';
+            });
+            
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function (e) {
+                if (!profileDropdownToggle.contains(e.target) && !profileDropdown.contains(e.target)) {
+                    profileDropdown.style.display = 'none';
+            
+                }
+            });
+            
+        });
+        
+    </script>
+</body>
+</html>

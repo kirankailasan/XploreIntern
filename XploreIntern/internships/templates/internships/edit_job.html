@@ -1,0 +1,20 @@
+<!-- internships/templates/internships/edit_job.html -->
+{% load static %}
+{% include 'internships/base.html' %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Internship - {{ job.job_title }}</title>
+    <link rel="stylesheet" href="{% static 'css/form.css' %}">
+</head>
+<body>
+    <h1 style="text-align:center; color: white">Edit Internship - {{ job.job_title }}</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save Changes</button>
+    </form>
+    <p><a href="{% url 'job_preview' job.id %}">Cancel</a></p>
+</body>
+</html>

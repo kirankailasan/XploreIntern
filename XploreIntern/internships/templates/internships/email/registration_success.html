@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to XploreIntern</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f7;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background-color: #4a90e2;
+            padding: 20px;
+            color: #fff;
+            text-align: center;
+        }
+        .content {
+            padding: 20px;
+        }
+        .content h2 {
+            color: #4a90e2;
+        }
+        .content p {
+            line-height: 1.6;
+        }
+        .footer {
+            background-color: #f4f4f7;
+            padding: 20px;
+            text-align: center;
+            color: #aaa;
+            font-size: 12px;
+        }
+        .button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4a90e2;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>Welcome to XploreIntern!</h1>
+        </div>
+        <div class="content">
+            <h2>Hello {{ user.username }}!</h2>
+            <p>Thank you for registering your company, {{ company_name }}, on XploreIntern. We're excited to have you as part of our community!</p>
+            <p>Please wait until the admin will approve your company {{ company_name }}. You will receive an email once it's done.</p>
+            <p>Best regards,<br>The XploreIntern Team</p>
+        </div>
+        <div class="footer">
+            <p>Need help? Contact us at <a href="mailto:xploreintern@gmail.com">xploreintern@gmail.com</a></p>
+            <p>© 2024 XploreIntern. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

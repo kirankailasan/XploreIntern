@@ -1,0 +1,19 @@
+{% load static %}
+{% include 'internships/base.html' %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title >Post a new Internship</title>
+    <link rel="stylesheet" href="{% static 'css/form.css' %}">
+</head>
+<body>
+    <h1 style="text-align:center; color: white;">Post a new Internship</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Post Job</button>
+    </form>
+</body>
+</html>
+

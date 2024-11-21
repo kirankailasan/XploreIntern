@@ -1,0 +1,72 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+        </title>
+        <link rel="stylesheet" href="{% static 'css/full_profile.css' %}">
+    </head>
+    <body>
+        <div class="page-container">
+            {% include 'internships/base.html' %}
+            <div class="content-wrap">
+        <div class="full_view">
+            <div class="profile-image-container" id="profileImageContainer">
+                {% if application.student.logo %}
+                    <img src="{{ application.student.logo.url }}" class="profile-image" style="width: 100px; height: 100px; border-radius: 50%">
+                {% else %}
+                    <img src="{% static 'images/default_profile.jpg' %}" class="profile-image" style="max-width: 200px; max-height: 200px;">
+                {% endif %}
+            </div>
+            <div id="popupOverlay" class="popup-overlay" style="display: none;">
+                <div class="popup-image-container">
+                    <span class="close-profile" onclick="closePopup()">&#10005;</span>
+                    {% if application.student.logo %}
+                        <img src="{{ application.student.logo.url }}?{{ user.student.updated_at.timestamp }}" class="full-image">
+                    {% else %}
+                        <img src="{% static 'images/default_profile.jpg' %}" class="full-image">
+                    {% endif %}
+                </div>
+            </div>       
+            <div class="details">
+                <p><strong>Name:</strong> {{ application.student.full_name }}</p>
+                <p><strong>Email:</strong> {{ application.student.user.email }}</p>
+                <p><strong>Date of birth:</strong> {{application.student.date_of_birth}} </p>
+                <p><strong>Contact number:</strong> {{application.student.contact_number}} </p>
+                <p><strong>Academic status:</strong> {{application.student.academic_status}} </p>
+                <p><strong>University:</strong> {{ application.student.university }}</p>
+                <p><strong>Field of Study:</strong> {{ application.student.field_of_study }}</p>
+                <p><strong>Resume:</strong> <a href="{{ application.resume.url }}" target="_blank">Download</a></p>
+                <p><strong>Preferred location: </strong>{{application.student.preferred_location}}</p>
+                <p><strong>Internship duration:</strong> {{application.student.internship_duration}} </p>
+                <p><strong>Industry of interest:</strong> {{application.student.industry_interest}} </p>
+                <p><strong>Stipend Expected:</strong> {{application.student.stipend_expectation}} </p>
+                <p><strong>Skills:</strong> {{application.student.skills}} </p>
+            </div>
+        </div>
+    </div>
+    {% include 'internships/footer.html' %}
+</div>
+
+        
+
+    
+        <script>
+            // JavaScript to show popup on image click
+            document.getElementById('profileImageContainer').addEventListener('click', function() {
+                document.getElementById('popupOverlay').style.display = 'flex';
+            });
+    
+            function closePopup() {
+                document.getElementById('popupOverlay').style.display = 'none';
+            }
+
+            
+    
+           
+            
+        </script>
+    </body>
+</html>
+

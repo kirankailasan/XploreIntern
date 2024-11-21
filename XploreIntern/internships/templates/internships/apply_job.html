@@ -1,0 +1,40 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Apply for Internships</title>
+        <link rel="stylesheet" href="{%static 'css/apply_job.css'%}">
+       
+    </head>
+
+    <body>
+        <div class="page-container">
+            {% include 'internships/base.html' %}
+            <div class="content-wrap">
+        <h2 style="text-align:center; color: white">Available Internships</h2>
+        {% if jobs %}
+            <ul type="none">
+            {% for job in jobs %}
+                <li>
+                    <a><strong>Position:</strong> {{ job.internship_title }}</a><br>
+                    <a><strong>Company:</strong> {{ job.company_name }}</a><br>
+                    <a><strong>Location:</strong> {{ job.location }}</a>
+                    <br>
+                    {% if job.id in applied_job_ids %}
+                        <br><button disabled style="color: white">Applied</button>
+                    {% else %}
+                    <br>
+                    <div class="applyjob"><a href="{% url 'apply_for_job' job.id %}">Apply Now</a></div>
+                    {% endif %}
+                </li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>No internships available.</p>
+        {% endif %}
+    </div>
+    {% include 'internships/footer.html' %}
+</div>
+        </body>
+</html>

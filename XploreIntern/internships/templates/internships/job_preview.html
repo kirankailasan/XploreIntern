@@ -1,0 +1,41 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Job Preview - {{ job.job_title }}</title>
+    <link rel="stylesheet" href="{% static 'css/full_profile.css' %}">
+</head>
+<body>
+    <div class="page-container">
+        {% include 'internships/base.html' %}
+        <div class="content-wrap">
+    
+    <div class="details" style="border-color: grey; border-radius:7px; padding: 10px; border-style: solid; margin-left: 20%; margin-right: 20%; background-color: rgb(255, 255, 255, 0.3)">
+        <h1>{{ job.job_title }}</h1>
+        <p><strong>Company Name:</strong> {{ job.company_name }}</p>
+        <p><strong>Location:</strong> {{ job.location }}</p>
+        <p><strong>Job Type:</strong> {{ job.job_type }}</p>
+        <p><strong>Experience Level:</strong> {{ job.experience_level }}</p>
+        <p><strong>Salary Range:</strong> {{ job.salary_range }}</p>
+        <p><strong>Benefits:</strong> {{ job.benefits }}</p>
+        <p><strong>Summary:</strong> {{ job.summary }}</p>
+        <p><strong>Key Responsibilities:</strong> {{ job.key_responsibilities }}</p>
+        <p><strong>Required Qualifications:</strong> {{ job.required_qualifications }}</p>
+        <p><strong>Preferred Qualifications:</strong> {{ job.preferred_qualifications }}</p>
+        <p><strong>Skills:</strong> {{ job.skills }}</p>
+        <p><strong>Application Instructions:</strong> {{ job.application_instructions }}</p>
+        <p><strong>Application Deadline:</strong> {{ job.application_deadline }}</p>
+        <p><strong>Contact Information:</strong> {{ job.contact_information }}</p>
+        <p><strong>Company Overview:</strong> {{ job.company_overview }}</p>
+        <p><strong>Company Website:</strong> <a href="{{ job.company_website }}" target="_blank">{{ job.company_website }}</a></p><br>
+    
+        <span><a href="{% url 'edit_job' job.id %}">Edit</a> | 
+            <a href="{% url 'employer_dashboard' %}">Back to Dashboard</a></span>
+    </div>
+</div>
+{% include 'internships/footer.html' %}
+</div>
+</body>
+</html>

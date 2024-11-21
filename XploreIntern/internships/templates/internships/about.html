@@ -1,0 +1,85 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>About Us</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-image: url('/static/images/about.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+    
+            
+        }        
+        .page-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensures full viewport height */
+        }
+        
+        /* Content wrapper takes up remaining height */
+        .content-wrap {
+            flex-grow: 1;
+            padding: 60px;
+            
+
+        }
+
+        .pg-con{
+            font-size: small;
+            border-color: white;
+            border-radius: 10px;
+            background-color: rgb(249, 245, 245, 0.7);
+            margin: 8%;
+            padding: 40px;
+        }
+       
+        
+
+    </style>
+</head>
+<body>
+
+    <div class="page-container">
+        {% include 'internships/base.html' %}
+        <div class="content-wrap">
+            <div class="pg-con">
+    
+    <h2 style="text-align: center;">About the Internship Portal</h2>
+    <p id="about">
+        <h3>Welcome to XploreIntern</h3>
+        At XploreIntern, we’re dedicated to bridging the gap between aspiring professionals and industry-leading companies. We provide a seamless, user-friendly platform where students and employers connect over meaningful internship opportunities.
+        <h4>Our Mission</h4>
+        Our mission is simple: empower students to gain hands-on experience while helping companies discover fresh, motivated talent. We believe internships should be accessible to all, offering real-world exposure and skill-building that prepares students for success in their chosen fields.
+        <h4>Our Vision</h4>
+        We envision a future where every student can develop professionally through internships, and where every employer benefits from the energy, innovation, and potential of emerging talent. By connecting students and employers, we hope to foster an environment of growth, learning, and mutual achievement.
+        <h3>What We Offer</h3>
+        <div>
+            <p><b>For Students: </b>A streamlined application process for diverse internship opportunities
+                Personalized dashboards to manage applications and monitor progress
+                The ability to create, edit, and showcase a detailed profile with resume uploads.<br></p>
+           
+            <p><b>For Employers: </b>Access to a pool of qualified, enthusiastic candidates
+                Comprehensive dashboards to manage postings and track applications
+                In-depth student profiles for more informed hiring decisions.</p>
+        </div>
+        <h3>Why Choose XploreIntern?</h3>
+        User-Friendly Interface: Our portal is designed for ease of use, making it easy for students and employers to navigate.
+        Secure and Reliable: Your data is secure with us. We prioritize privacy, ensuring a trusted space for every user.
+        Transformative Opportunities: We strive to offer internships that build skills, confidence, and career readiness.
+        Thank you for choosing XploreIntern. Let’s create the future, one internship at a time.</p>
+    </div>
+
+</div>
+{% include 'internships/footer.html' %}
+</div>
+</body>
+
+</html>
