@@ -1,0 +1,103 @@
+/* Navbar styling */
+#navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    box-shadow: 0 4px 8px rgba(40, 38, 38, 0.1);
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* Logo */
+#navbar .logo {
+    font-size: 1.5rem;
+    color: #333;
+}
+
+#icon:hover{
+    transform: scale(1.05);
+}
+
+/* Navigation links */
+#navbar .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+#navbar .nav-links a {
+    color: lightblue;
+    text-decoration: none;
+    font-size: 1rem;
+    
+    border-radius: 10px; /* Ensure border-radius exists for hover effect */
+    padding: 7px; /* Maintain consistent padding */
+}
+
+#navbar .nav-links a:hover {
+    color: white;
+    text-decoration: none;
+    padding: 7px;
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transform: scale(1.05) translateZ(0);
+}
+
+/* Profile icon section */
+#navbar .navbar-profile {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+
+#navbar .profile-container {
+    position: relative;
+    cursor: pointer;
+}
+
+#navbar .profile-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Profile dropdown styling */
+#navbar .profile-dropdown {
+    display: none;
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    z-index: 10;
+}
+
+#navbar .profile-dropdown a {
+    display: block;
+    padding: 10px 20px;
+    color: #333;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+#navbar .profile-dropdown a:hover {
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+/* Icon hover effect */
+#icon {
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+#icon:hover {
+    text-shadow: 0 0 5px rgba(50, 62, 195, 0.5);
+}

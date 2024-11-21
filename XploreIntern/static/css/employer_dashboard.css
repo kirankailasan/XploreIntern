@@ -1,0 +1,157 @@
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    background-image: url('/static/images/employer_dashboard.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Container for full height layout */
+.page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensures full viewport height */
+}
+
+/* Content wrapper takes up remaining height */
+.content-wrap {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+/* Header */
+h1 {
+    color: lightblue;
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+h2 {
+    color: #333;
+    font-size: 1.5rem;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+/* Profile Information */
+img {
+    max-width: 200px;
+    max-height: 200px;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+p {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Links */
+a {
+    color: #0073e6;
+    text-decoration: none;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+a:hover {
+    color: #005bb5;
+}
+
+/* Update Profile and Post Job Links */
+ a[href*="post_job"] {
+    display: inline-block;
+    padding: 8px 12px;
+    background-color: #0073e6;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+a[href*="post_job"]:hover {
+    background-color: #005bb5;
+}
+
+
+/* Job List */
+ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+    padding: 0;
+    list-style: none;
+    margin: 0;
+    
+}
+
+ul li {
+    background-color: rgb(255, 255, 255,0.1);
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: 0 0 5px rgba(231, 226, 226, 0.855);
+    font-size: 1.1rem;
+    color: lightgrey;
+    
+}
+ul li:hover{
+    background-color:rgb(255, 255, 255,0.3);
+    transform: scale(1.05);
+}
+
+
+@media (max-width: 480px) {
+    ul li {
+        padding: 10px;
+    }
+}
+
+/* Job Actions */
+ul li a {
+    color: blue;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+ul li a:hover {
+    color: lightblue;
+}
+
+.btn-danger {
+    color: white;
+    background-color: #e63946;
+    padding: 8px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    line-height: 3;
+}
+
+.btn-danger:hover {
+    background-color: #79d4e6;
+    color: white;
+}
+
+.badge {
+    padding: 6px 10px;
+    font-size: 0.9rem;
+    border-radius: 5px;
+}
+
+.bg-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+.applicants{
+    color: black;
+    font-size:1.1rem;
+}
+.applicants:hover{
+    color: white;
+}

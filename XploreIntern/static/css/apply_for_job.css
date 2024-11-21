@@ -1,0 +1,100 @@
+/* General styles */
+
+body{
+    background-image: url('/static/images/apply_job.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    
+}
+h2 {
+    text-align: center;
+    color: #0073e6;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Form container */
+form {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    width: 100%;
+    padding: 20px 30px;
+    margin: 20px auto;
+}
+
+/* Internship Details Section */
+.details {
+    margin-bottom: 20px;
+}
+
+.details p {
+    font-size: 16px;
+    margin: 10px 0;
+    color: #555;
+}
+
+.details p strong {
+    color: #333;
+    font-weight: 600;
+}
+
+.details a {
+    color: #0073e6;
+    text-decoration: none;
+}
+
+.details a:hover {
+    text-decoration: underline;
+}
+
+/* Form Fields */
+form input[type="text"],
+form input[type="email"],
+form input[type="file"],
+form textarea {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Apply Button */
+button[type="submit"] {
+    background-color: #0073e6;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 100;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100px;
+}
+
+button[type="submit"]:hover {
+    background-color: #005bb5;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    form {
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    .details p {
+        font-size: 14px;
+    }
+
+    button[type="submit"] {
+        font-size: 16px;
+    }
+}

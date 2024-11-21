@@ -1,0 +1,120 @@
+/* Basic styling for the page */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    background-image: url('/static/images/view_profile.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    box-sizing: border-box;
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensures full viewport height */
+}
+
+/* Content wrapper takes up remaining height */
+.content-wrap {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+
+/* Profile Image Container */
+.profile-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    
+    cursor: pointer;
+}
+
+.profile-image {
+    border-radius: 50%;
+  
+    transition: transform 0.3s ease;
+    margin-top: 20px;
+}
+
+.profile-image:hover {
+    transform: scale(1.1);
+}
+
+/* Popup Overlay */
+.popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup-image-container {
+    position: relative;
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.popup-image-container img {
+    max-width: 90%;
+    max-height: 80vh;
+    border-radius: 8px;
+}
+
+.close-profile {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 24px;
+    color: #333;
+}
+
+/* Profile Information */
+div p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 8px 0;
+}
+
+div p strong {
+    color: #444;
+    font-weight: bold;
+}
+
+.details{
+    border-radius: 4px; 
+    display: grid;
+    place-items: center;
+    
+    
+}
+
+
+.full_view{
+    box-shadow:10px 10px 5px rgba(34, 31, 31, 0.553);
+    background-color: rgb(255, 255, 255,0.7);
+    margin-left: 10%;
+    margin-right: 10%;
+    border-radius: 20px;
+    
+}
+div p strong{
+    color: black
+}
+
+div span a:hover{
+color:blue;
+}

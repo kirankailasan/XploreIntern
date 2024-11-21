@@ -1,0 +1,73 @@
+
+body{
+    background-image: url('/static/images/apply_job.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensures full viewport height */
+}
+
+/* Content wrapper takes up remaining height */
+.content-wrap {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+
+
+ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+    padding: 0;
+    list-style: none;
+    margin: 0;
+    
+}
+
+
+
+ul li {
+    background-color: rgb(255, 255, 255,0.1);
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+ul li:hover{
+    background-color:rgb(255, 255, 255,0.3);
+    transform: scale(1.05);
+}
+
+
+@media (max-width: 480px) {
+    ul li {
+        padding: 10px;
+    }
+}
+
+/* Job Actions */
+ul li a {
+    color: lightgrey;
+    text-decoration: none;
+    margin-right: 10px;
+}
+.applyjob a{
+    color: lightblue;
+}
+.applyjob a:hover{
+    color: darkblue;
+    font-weight:bold;   
+}
+strong{
+    color: black;
+}

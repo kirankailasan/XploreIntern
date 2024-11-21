@@ -1,0 +1,206 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    background-image: url('/static/images/student_dashboard.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Container for full height layout */
+.page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensures full viewport height */
+}
+
+/* Content wrapper takes up remaining height */
+.content-wrap {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+/* Header */
+h1 {
+    color: #0073e6;
+    font-size: 2rem;
+    margin-bottom: 15px;
+    
+}
+
+h2 {
+    color: #333;
+    font-size: 1.5rem;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+
+
+p {
+    font-size: 1rem;
+    color: #555;
+}
+.apply
+{
+    border-color: none;
+    background-color: blue;
+    padding: 8px;
+    border-radius: 8px;
+    color: white;
+    
+
+}
+
+.apply:hover{
+    background-color: darkblue;
+    color: lightgrey;
+
+}
+/* Links */
+a {
+    color: #0073e6;
+    text-decoration: none;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+a:hover {
+    color: #005bb5;
+}
+
+/* Update Profile and Post Job Links */
+ 
+
+a[href*="post_job"]:hover {
+    background-color: #005bb5;
+}
+
+
+/* Job List */
+ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 15px;
+    padding: 0;
+    list-style: none;
+    margin: 0;
+    
+}
+
+ul li {
+    background-color: rgb(255, 255, 255,0.1);
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: 0 0 5px rgba(231, 226, 226, 0.855);
+}
+
+ul li:hover{
+    background-color:rgb(255, 255, 255,0.3);
+    transform: scale(1.05);
+}
+
+
+@media (max-width: 480px) {
+    ul li {
+        padding: 10px;
+    }
+}
+
+/* Job Actions */
+ul li a {
+    color: #0073e6;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+ul li a:hover {
+    color: #005bb5;
+}
+
+strong{
+    color: black;
+}
+
+  
+/* Circular Progress Styles */
+.circular-progress {
+    position: relative;
+    width: 120px; /* Adjusted size */
+    height: 120px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: lightblue; /* Fallback color */
+    margin: 20px auto;
+}
+
+
+
+.circular-progress .inner-circle {
+    position: absolute;
+    width: 80px; /* Adjusted to be smaller than the outer circle */
+    height: 80px;
+    background-color: white;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.circular-progress .percentage {
+    position: absolute;
+    z-index: 2;
+    color: black;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+}
+
+#update_profile 
+{
+    color: white;
+    border: none;
+    background-color: blue;
+    padding:5px;
+    border-radius: 6px;
+}
+#update_profile:hover{
+    background-color: darkblue;
+}
+
+.notifications-icon {
+    position: absolute;
+    display: inline-block;
+    top: 20px;
+    margin-top: 70px;
+    left: 3%;
+    
+    
+}
+.notifications-icon:hover{
+    transform: scale(1.05);
+}
+
+ .badge {
+    position: absolute;
+    top: -15px;
+    left: 3%;
+    font-size: 40px;
+    color: white;
+    padding: 5px 10px;
+    
+  
+   
+    
+}
+
+
+  
+  .circular-progress:hover {
+    transform: scale(1.05);
+  }
+  
