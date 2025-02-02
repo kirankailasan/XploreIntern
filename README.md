@@ -26,6 +26,4 @@ Technical Stack: Backend: Django (Python) Frontend: HTML, CSS, JavaScript Databa
 
 Challenges Solved: Multi-role access with distinct features for students and employers. Efficient notification system to update students in real-time. Dynamic profile management with default values and validations.
 
-Usage and Hosting: A partially hosted version of the project is available on GitHub for showcasing features. Full access is restricted to buyers with a Call to Action (CTA) in the README.
 
-Potential for Further Development: Adding payment gateway integration for premium internship postings. Advanced analytics for tracking internship trends. Chat functionality between employers and students.
